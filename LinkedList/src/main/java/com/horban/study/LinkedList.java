@@ -144,6 +144,28 @@ public class LinkedList<T> {
         }
     }
 
+    public void reverseBetween(int m, int n) {
+        if (n - m + 1 == length) {
+            reverse();
+            return;
+        }
+
+        Node<T> prevNode = head;
+        for (int i = 0; i < m - 1; i++) {
+            prevNode = prevNode.next;
+        }
+        if (head == null || prevNode == null) {
+            return;
+        }
+        Node<T> currentNode = prevNode.next;
+        for (int i = m; i < n; i++) {
+            Node<T> nextNode = currentNode.next;
+            currentNode.next = nextNode.next;
+            nextNode.next = prevNode.next;
+            prevNode.next = nextNode;
+        }
+    }
+
     public Node<T> findMiddleNode() {
         Node<T> slowPointer = head;
         Node<T> fastPointer = head;
@@ -229,6 +251,9 @@ public class LinkedList<T> {
 
         public Node(T value) {
             this.value = value;
+        }
+
+        public Node() {
         }
     }
 
