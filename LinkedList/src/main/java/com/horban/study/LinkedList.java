@@ -155,6 +155,24 @@ public class LinkedList<T> {
         return slowPointer;
     }
 
+    public Node<T> findKthFromEnd(int k) {
+        Node<T> kPointer = head;
+        Node<T> endPointer = head;
+        for (int i = 1; i < k; i++) {
+            if (endPointer != null) {
+                endPointer = endPointer.next;
+            } else {
+                return null;
+            }
+        }
+        while (endPointer != null) {
+            kPointer = kPointer.next;
+            endPointer = endPointer.next;
+        }
+
+        return kPointer;
+    }
+
     public boolean hasLoop() {
         Node<T> slowPointer = head;
         Node<T> fastPointer = head;
