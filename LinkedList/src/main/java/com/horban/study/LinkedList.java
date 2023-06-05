@@ -155,6 +155,20 @@ public class LinkedList<T> {
         return slowPointer;
     }
 
+    public boolean hasLoop() {
+        Node<T> slowPointer = head;
+        Node<T> fastPointer = head;
+        while (fastPointer != null && fastPointer.next != null) {
+            fastPointer = fastPointer.next.next;
+            slowPointer = slowPointer.next;
+            if (slowPointer == fastPointer) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private Node<T> findElementBeforeTail() {
         Node<T> currentNode = head;
         while (currentNode.next != tail) {
