@@ -144,6 +144,17 @@ public class LinkedList<T> {
         }
     }
 
+    public Node<T> findMiddleNode() {
+        Node<T> slowPointer = head;
+        Node<T> fastPointer = head;
+        while (fastPointer != null && fastPointer.next != null) {
+            fastPointer = fastPointer.next.next;
+            slowPointer = slowPointer.next;
+        }
+
+        return slowPointer;
+    }
+
     private Node<T> findElementBeforeTail() {
         Node<T> currentNode = head;
         while (currentNode.next != tail) {
