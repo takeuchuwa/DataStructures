@@ -1,5 +1,7 @@
 package com.horban.study;
 
+import java.util.HashSet;
+
 public class LinkedList<T> {
 
     private Node<T> head;
@@ -175,6 +177,28 @@ public class LinkedList<T> {
         }
 
         return slowPointer;
+    }
+
+    public void removeDuplicates() {
+        if (head == null) {
+            return;
+        }
+        Node<T> prevNode = head;
+        Node<T> currentNode = prevNode.next;
+        HashSet<T> values = new HashSet<>(length);
+        values.add(prevNode.value);
+        while (currentNode != null) {
+            if (values.contains(currentNode.value)) {
+                prevNode.next = currentNode.next;
+                currentNode.next = null;
+                currentNode = prevNode.next;
+                length--;
+            } else {
+                values.add(currentNode.value);
+                prevNode = prevNode.next;
+                currentNode = currentNode.next;
+            }
+        }
     }
 
     public Node<T> findKthFromEnd(int k) {
