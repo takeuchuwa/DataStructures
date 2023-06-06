@@ -150,10 +150,72 @@ public class DoubleLinkedList<T> {
         return removedNode;
     }
 
+    public void swapFirstLast() {
+        if (head == null || head == tail) {
+            return;
+        }
+
+        Node<T> nextNode = head.next;
+        Node<T> prevNode = tail.prev;
+        if (length > 2) {
+            nextNode.prev = tail;
+            prevNode.next = head;
+            head.prev = prevNode;
+            tail.next = nextNode;
+        }
+        Node<T> tmpHead = head;
+        head = tail;
+        tail = tmpHead;
+        if (head.next == null) {
+            head.next = tmpHead;
+            tmpHead.prev = head;
+        }
+        head.prev = null;
+        tail.next = null;
+
+    }
+
     public boolean set(int index, T value) {
         Node<T> tNode = get(index);
         tNode.value = value;
         return true;
+    }
+
+    public Node<T> getHead() {
+        return head;
+    }
+
+    public Node<T> getTail() {
+        return tail;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void printList() {
+        Node<T> temp = head;
+        while (temp != null) {
+            System.out.println(temp.value);
+            temp = temp.next;
+        }
+    }
+
+    public void printAll() {
+        if (length == 0) {
+            System.out.println("Head: null");
+            System.out.println("Tail: null");
+        } else {
+            System.out.println("Head: " + head.value);
+            System.out.println("Tail: " + tail.value);
+        }
+        System.out.println("Length:" + length);
+        System.out.println("\nDoubly Linked List:");
+        if (length == 0) {
+            System.out.println("empty");
+        } else {
+            printList();
+        }
     }
 
     static class Node<T> {
