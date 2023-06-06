@@ -175,6 +175,21 @@ public class DoubleLinkedList<T> {
 
     }
 
+    public void reverse() {
+        Node<T> temp = head;
+        head = tail;
+        tail = temp;
+
+        Node<T> prevNode = null;
+        for (int i = 0; i < length; i++) {
+            Node<T> nextNode = temp.next;
+            temp.next = prevNode;
+            prevNode = temp;
+            temp.prev = nextNode;
+            temp = nextNode;
+        }
+    }
+
     public boolean set(int index, T value) {
         Node<T> tNode = get(index);
         tNode.value = value;
