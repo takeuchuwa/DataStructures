@@ -1,12 +1,12 @@
 package com.horban.study;
 
-public class DoubleLinkedList<T> {
+public class DoublyLinkedList<T> {
 
     private Node<T> head;
     private Node<T> tail;
     private int length;
 
-    public DoubleLinkedList(T value) {
+    public DoublyLinkedList(T value) {
         createFirst(value);
     }
 

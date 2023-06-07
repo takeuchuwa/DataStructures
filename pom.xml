@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>LinkedList</module>
-        <module>DoubleLinkedList</module>
+        <module>DoublyLinkedList</module>
     </modules>
 
     <properties>
