@@ -74,6 +74,32 @@ public class DoublyLinkedList<T> {
         return true;
     }
 
+    public void swapPairs() {
+        Node<T> currentNode = head;
+        while (currentNode != null) {
+            Node<T> nextNode = currentNode.next;
+            Node<T> prevNode = currentNode.prev;
+            if (nextNode != null) {
+                if (nextNode.next != null) {
+                    nextNode.next.prev = currentNode;
+                }
+                currentNode.next = nextNode.next;
+                nextNode.next = currentNode;
+                nextNode.prev = currentNode.prev;
+                currentNode.prev = nextNode;
+                if (nextNode.prev == null) {
+                    head = nextNode;
+                } else if (currentNode.next == null) {
+                    tail = currentNode;
+                }
+            }
+            if (prevNode != null) {
+                prevNode.next = nextNode;
+            }
+            currentNode = currentNode.next;
+        }
+    }
+
     public Node<T> removeFirst() {
         Node<T> removedNode = head;
         if (length == 0) {
