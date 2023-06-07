@@ -60,6 +60,20 @@ public class DoublyLinkedList<T> {
         length++;
     }
 
+    public boolean isPalindrome() {
+        Node<T> first = head;
+        Node<T> last = tail;
+        for (int i = 0; i < length / 2; i++) {
+            if (!first.value.equals(last.value)) {
+                return false;
+            }
+            first = first.next;
+            last = last.prev;
+        }
+
+        return true;
+    }
+
     public Node<T> removeFirst() {
         Node<T> removedNode = head;
         if (length == 0) {
