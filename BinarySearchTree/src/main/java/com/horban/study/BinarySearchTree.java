@@ -48,6 +48,76 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return false;
     }
 
+    public boolean recursiveContains(T value) {
+        return recursiveContains(root, value);
+    }
+
+    private boolean recursiveContains(Node<T> currentNode, T value) {
+        if (currentNode == null) return false;
+
+        if (currentNode.value.compareTo(value) == 0) return true;
+
+        if (currentNode.value.compareTo(value) > 0) {
+            return recursiveContains(currentNode.left, value);
+        } else {
+            return recursiveContains(currentNode.right, value);
+        }
+    }
+
+    public void recursiveInsert(T value) {
+        if (root == null) root = new Node<>(value);
+        recursiveInsert(root, value);
+    }
+
+    private Node<T> recursiveInsert(Node<T> currentNode, T value) {
+        if (currentNode == null) return new Node<>(value);
+
+        if (currentNode.value.compareTo(value) > 0) {
+            currentNode.left = recursiveInsert(currentNode.left, value);
+        } else if (currentNode.value.compareTo(value) < 0){
+            currentNode.right = recursiveInsert(currentNode.right, value);
+        }
+
+        return currentNode;
+    }
+
+    private Node<T> deleteNode(Node<T> currentNode, T value) {
+        if (currentNode == null) return null;
+
+        if (currentNode.value.compareTo(value) > 0) {
+            currentNode.left = deleteNode(currentNode.left, value);
+        } else if (currentNode.value.compareTo(value) < 0){
+            currentNode.right = deleteNode(currentNode.right, value);
+        } else {
+            if (currentNode.left  == null && currentNode.right == null) {
+                currentNode = null;
+            } else if (currentNode.right == null ) {
+                currentNode = currentNode.left;
+            } else if (currentNode.left == null) {
+                currentNode = currentNode.right;
+            } else {
+                T subTreeMinValue = minimumValue(currentNode.right);
+                currentNode.value = subTreeMinValue;
+                currentNode.right = deleteNode(currentNode.right, subTreeMinValue);
+            }
+
+        }
+
+        return currentNode;
+    }
+
+    private T minimumValue(Node<T> currentNode) {
+        while (currentNode.left != null) {
+            currentNode = currentNode.left;
+        }
+
+        return currentNode.value;
+    }
+
+    public void deleteNode(T value) {
+        deleteNode(root, value);
+    }
+
     public Node<T> getRoot() {
         return root;
     }
