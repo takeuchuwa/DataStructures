@@ -115,7 +115,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public void deleteNode(T value) {
-        deleteNode(root, value);
+        root = deleteNode(root, value);
     }
 
     public Node<T> getRoot() {
