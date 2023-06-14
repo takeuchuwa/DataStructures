@@ -2,7 +2,7 @@ package com.horban.study;
 
 import java.util.HashSet;
 
-public class LinkedList<T> {
+public class LinkedList<T extends Comparable<T>> {
 
     private Node<T> head;
     private Node<T> tail;
@@ -233,6 +233,30 @@ public class LinkedList<T> {
         return false;
     }
 
+    public void insertionSort() {
+        if (length < 2) return;
+
+        Node<T> sortedListHead = null;
+        Node<T> current = head;
+        while (current != null) {
+            Node<T> next = current.next;
+            if (sortedListHead == null || sortedListHead.value.compareTo(current.value) >= 0) {
+                current.next = sortedListHead;
+                sortedListHead = current;
+            } else {
+                Node<T> searchPointer = sortedListHead;
+                while (searchPointer.next != null && searchPointer.next.value.compareTo(current.value) < 0) {
+                    searchPointer = searchPointer.next;
+                }
+                current.next = searchPointer.next;
+                searchPointer.next = current;
+            }
+            current = next;
+        }
+
+        head = sortedListHead;
+    }
+
     private Node<T> findElementBeforeTail() {
         Node<T> currentNode = head;
         while (currentNode.next != tail) {
@@ -269,7 +293,7 @@ public class LinkedList<T> {
         System.out.println("Length: " + length);
     }
 
-    static class Node<T> {
+    static class Node<T extends Comparable<T>> {
         T value;
         Node<T> next;
 
