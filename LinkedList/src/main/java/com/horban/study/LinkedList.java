@@ -257,6 +257,36 @@ public class LinkedList<T extends Comparable<T>> {
         head = sortedListHead;
     }
 
+    public void merge(LinkedList<T> otherList) {
+        Node<T> current = head;
+        Node<T> other = otherList.getHead();
+        Node<T> currentSortedNode = new Node<>();
+        Node<T> beforeHead = currentSortedNode;
+        while (current != null && other != null) {
+            if (current.value.compareTo(other.value) < 0) {
+                currentSortedNode.next = current;
+                current = current.next;
+            } else {
+                currentSortedNode.next = other;
+                other = other.next;
+            }
+            currentSortedNode = currentSortedNode.next;
+        }
+        while (current != null) {
+            currentSortedNode.next = current;
+            current = current.next;
+            currentSortedNode = currentSortedNode.next;
+        }
+        while (other != null) {
+            currentSortedNode.next = other;
+            other = other.next;
+            currentSortedNode = currentSortedNode.next;
+        }
+        head = beforeHead.next;
+        tail = currentSortedNode;
+        length += otherList.getLength();
+    }
+
     private Node<T> findElementBeforeTail() {
         Node<T> currentNode = head;
         while (currentNode.next != tail) {
@@ -273,24 +303,16 @@ public class LinkedList<T extends Comparable<T>> {
         }
     }
 
-    public void getHead() {
-        if (head == null) {
-            System.out.println("Head: null");
-        } else {
-            System.out.println("Head: " + head.value);
-        }
+    public Node<T> getHead() {
+        return head;
     }
 
-    public void getTail() {
-        if (head == null) {
-            System.out.println("Tail: null");
-        } else {
-            System.out.println("Tail: " + tail.value);
-        }
+    public Node<T> getTail() {
+        return tail;
     }
 
-    public void getLength() {
-        System.out.println("Length: " + length);
+    public int getLength() {
+        return length;
     }
 
     static class Node<T extends Comparable<T>> {
@@ -302,6 +324,10 @@ public class LinkedList<T extends Comparable<T>> {
         }
 
         public Node() {
+        }
+
+        public T getValue() {
+            return value;
         }
     }
 
