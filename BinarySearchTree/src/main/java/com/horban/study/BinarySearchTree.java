@@ -1,5 +1,10 @@
 package com.horban.study;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class BinarySearchTree<T extends Comparable<T>> {
 
     private Node<T> root;
@@ -104,6 +109,78 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
 
         return currentNode;
+    }
+
+    public List<T> breadthFirstSearch() {
+        Node<T> currentNode = root;
+        Queue<Node<T>> queue = new LinkedList<>();
+        queue.add(currentNode);
+        List<T> results = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            currentNode = queue.remove();
+            results.add(currentNode.value);
+            if (currentNode.left != null) {
+                queue.add(currentNode.left);
+            }
+            if (currentNode.right != null) {
+                queue.add(currentNode.right);
+            }
+        }
+
+        return results;
+    }
+
+    public List<T> depthFirstSearchPreOrder() {
+        List<T> results = new ArrayList<>();
+        if (root != null) {
+            preOrder(results, root);
+        }
+        return results;
+    }
+    public List<T> depthFirstSearchPostOrder() {
+        List<T> results = new ArrayList<>();
+        if (root != null) {
+            postOrder(results, root);
+        }
+        return results;
+    }
+
+    public List<T> depthFirstSearchInOrder() {
+        List<T> results = new ArrayList<>();
+        if (root != null) {
+            inOrder(results, root);
+        }
+        return results;
+    }
+
+    private void inOrder(List<T> results, Node<T> currentNode) {
+        if (currentNode.left != null) {
+            inOrder(results, currentNode.left);
+        }
+        results.add(currentNode.value);
+        if (currentNode.right != null) {
+            inOrder(results, currentNode.right);
+        }
+    }
+
+    private void postOrder(List<T> results, Node<T> currentNode) {
+        if (currentNode.left != null) {
+            postOrder(results, currentNode.left);
+        }
+        if (currentNode.right != null) {
+            postOrder(results, currentNode.right);
+        }
+        results.add(currentNode.value);
+    }
+
+    private void preOrder(List<T> results, Node<T> currentNode) {
+        results.add(currentNode.value);
+        if (currentNode.left != null) {
+            preOrder(results, currentNode.left);
+        }
+        if (currentNode.right != null) {
+            preOrder(results, currentNode.right);
+        }
     }
 
     private T minimumValue(Node<T> currentNode) {
